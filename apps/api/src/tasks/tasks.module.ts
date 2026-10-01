@@ -1,0 +1,12 @@
+import { Module } from '@nestjs/common';
+
+import { ProjectTasksController } from './project-tasks.controller';
+import { TasksController } from './tasks.controller';
+import { TasksService } from './tasks.service';
+
+@Module({
+  controllers: [TasksController, ProjectTasksController],
+  providers: [TasksService],
+  exports: [TasksService],
+})
+export class TasksModule {}
