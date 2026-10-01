@@ -3,7 +3,7 @@
 > Gestor de tareas colaborativo con autenticación, roles y base de datos relacional.
 > Proyecto full-stack en TypeScript: **NestJS + Prisma + PostgreSQL** en el backend y **React + Vite + Tailwind** en el frontend.
 
-[![CI](https://img.shields.io/badge/CI-GitHub%20Actions-181717?logo=github)](.github/workflows/ci.yml)
+[![CI](https://img.shields.io/github/actions/workflow/status/alberto2005-coder/taskflow/ci.yml?branch=main&label=CI&logo=github)](https://github.com/alberto2005-coder/taskflow/actions/workflows/ci.yml)
 ![NestJS](https://img.shields.io/badge/NestJS-11-E0234E?logo=nestjs&logoColor=white)
 ![Prisma](https://img.shields.io/badge/Prisma-6-2D3748?logo=prisma&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4169E1?logo=postgresql&logoColor=white)
@@ -169,7 +169,7 @@ _este_ recurso?) vive en `src/users/permissions.ts`, una capa **pura y testeable
 ## 🚀 Puesta en marcha (un solo comando)
 
 ```bash
-git clone <url-del-repositorio> TaskFlow
+git clone https://github.com/alberto2005-coder/taskflow.git TaskFlow
 cd TaskFlow
 cp .env.example .env          # ajusta credenciales si lo necesitas
 docker compose up
@@ -240,7 +240,7 @@ solo con la API):
 | `JWT_REFRESH_TTL`    | `7d`                                                          | Caducidad del refresh token      |
 | `VITE_API_URL`       | `http://localhost:4000/api`                                   | Base de la API en el navegador   |
 
-> ⚠️ Nunca subas `.estenv` real al repositorio (`.env` está en `.gitignore`).
+> ⚠️ Nunca subas `.env` real al repositorio (`.env` está en `.gitignore`).
 
 ---
 
@@ -458,7 +458,7 @@ La salida íntegra (listado de suites y tabla de cobertura) está en
 - Si PostgreSQL no está disponible, los tests de integración se **omiten** con un aviso y los
   unitarios se ejecutan igualmente.
 - Umbrales exigidos: **`src/auth` ≥ 70 %** y **`src/users/permissions.ts` ≥ 90 %** (declarados
-  por directorio/ruta, no con globs, porque Jest evalía los umbrales glob **fichero a fichero**).
+  por directorio/ruta, no con globs, porque Jest evalúa los umbrales glob **fichero a fichero**).
 
 ---
 
@@ -521,6 +521,9 @@ La salida íntegra (listado de suites y tabla de cobertura) está en
 ## 📜 Licencia
 
 **Copyright © 2026 Alberto Ortiz (`alberto2005-coder`). Todos los derechos reservados.**
+
+> **Repositorio original:** <https://github.com/alberto2005-coder/taskflow> — los forks y
+> variaciones deben enlazarlo visiblemente (apartado 3.1 de la licencia).
 
 Uso permitido solo con fines **no comerciales**; el texto completo y vinculante está en
 [`LICENSE`](LICENSE). Resumen orientativo:

@@ -57,7 +57,7 @@ Puertos publicados:
 ### Primer arranque
 
 ```bash
-git clone <repositorio> TaskFlow && cd TaskFlow
+git clone https://github.com/alberto2005-coder/taskflow.git TaskFlow && cd TaskFlow
 
 # 1. Configuración
 cp .env.example .env
