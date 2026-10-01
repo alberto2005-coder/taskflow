@@ -1,0 +1,39 @@
+# ============================================================
+# .dockerignore (contexto de build: RAÍZ del repositorio)
+# Usado por apps/api/Dockerfile y apps/web/Dockerfile
+# ============================================================
+
+# Dependencias y artefactos (se regeneran dentro de la imagen)
+node_modules
+**/node_modules
+dist
+**/dist
+build
+**/build
+coverage
+**/coverage
+*.tsbuildinfo
+
+# Control de versiones / CI
+.git
+.github
+
+# Entorno y datos locales (los secretos los inyecta docker-compose)
+.env
+.env.local
+.env.*.local
+*.log
+logs
+.pgdata
+docker-data
+
+# Tests de la API: no hacen falta en la imagen de producción
+apps/api/test
+
+# Documentación
+docs
+*.md
+
+# Docker (no hace falta copiar los propios ficheros)
+Dockerfile
+**/.dockerignore

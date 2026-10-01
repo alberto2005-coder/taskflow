@@ -1,0 +1,66 @@
+name: TaskFlow
+
+services:
+  # ------------------------------------------------------------
+  # Base de datos relacional
+  # ------------------------------------------------------------
+  db:
+    image: postgres:16-alpine
+    container_name: taskflow-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: taskflow
+    ports:
+      - '5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d taskflow']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # ------------------------------------------------------------
+  # API — NestJS + Prisma
+  # ------------------------------------------------------------
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    container_name: taskflow-api
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/taskflow
+      API_PORT: '4000'
+      CORS_ORIGIN: 'http://localhost:5173'
+      JWT_ACCESS_SECRET: ${JWT_ACCESS_SECRET:-taskflow-dev-access-secret-change-me-in-production}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:-taskflow-dev-refresh-secret-change-me-in-production}
+      JWT_ACCESS_TTL: '15m'
+      JWT_REFRESH_TTL: '7d'
+    ports:
+      - '4000:4000'
+    command: sh -c "npx prisma migrate deploy && node dist/main.js"
+
+  # ------------------------------------------------------------
+  # Frontend — React + Vite (Nginx en producción)
+  # ------------------------------------------------------------
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      args:
+        VITE_API_URL: /api
+    container_name: taskflow-web
+    restart: unless-stopped
+    depends_on:
+      - api
+    ports:
+      - '5173:80'
+
+volumes:
+  pgdata:
