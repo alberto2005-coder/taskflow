@@ -132,7 +132,7 @@ _este_ recurso?) vive en `src/users/permissions.ts`, una capa **pura y testeable
 ## 📸 Capturas
 
 > Captura real de la aplicación funcionando sobre los datos del seed. La galería completa
-> (14 imágenes, incluidas registro, edición, permisos y Swagger) está en
+> (15 imágenes, incluidas registro, edición, permisos, Swagger y la CI) está en
 > [`docs/imagenes/`](docs/imagenes/) y cada pantalla está comentada en la
 > [guía de usuario](docs/USUARIO.md).
 
@@ -473,6 +473,12 @@ La salida íntegra (listado de suites y tabla de cobertura) está en
 5. `prisma migrate deploy`
 6. `npm test`
 7. `npm run build`
+
+Pasada real en GitHub Actions (primer push, 2026-10-01):
+
+![GitHub Actions: ejecución «Lint, test y build» con estado Success en 1m 14s y resumen de Vitest (4 ficheros, 17 tests)](docs/imagenes/14-ci.png)
+
+> La badge superior del README consulta el estado de esta misma _workflow_ en tiempo real.
 
 ---
 
