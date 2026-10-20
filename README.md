@@ -523,26 +523,23 @@ Pasada real en GitHub Actions (primer push, 2026-10-01):
 - [ ] Exportación de informes
 
 ---
-
 ## 📜 Licencia
 
-**Copyright © 2026 Alberto Ortiz (`alberto2005-coder`). Todos los derechos reservados.**
+**Copyright © 2026 Alberto Ortiz (`alberto2005-coder`).**
 
-> **Repositorio original:** <https://github.com/alberto2005-coder/taskflow> — los forks y
-> variaciones deben enlazarlo visiblemente (apartado 3.1 de la licencia).
+> **Repositorio original:** <https://github.com/alberto2005-coder/taskflow> — cita visiblemente
+> el proyecto original en forks y variaciones.
 
-Uso permitido solo con fines **no comerciales**; el texto completo y vinculante está en
+Este proyecto está bajo la **Licencia GPL-3.0**; el texto completo y vinculante está en
 [`LICENSE`](LICENSE). Resumen orientativo:
 
 |                            |                                                                                                                                                                               |
 | -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ✅ **Permitido**           | Usar, copiar, modificar y distribuir con fines **no comerciales**, manteniendo la atribución al autor original.                                                               |
-| ❌ **Prohibido**           | Comercializar, vender o integrar el software en servicios pagos **sin autorización escrita** de Alberto Ortiz.                                                                |
-| 🍴 **Forks y variaciones** | Deben citar el proyecto original y al autor, indicar los cambios realizados y llevar una marca de agua visible (apartado 3 de la licencia); siguen sin poder comercializarse. |
-| 📄 **Redistribución**      | Incluir este `LICENSE` íntegro, mantener los avisos de copyright y no relajar sus términos.                                                                                   |
-
-> ¿Necesitas una licencia comercial? Contacta con **Alberto Ortiz** · GitHub `alberto2005-coder`.
+| ✅ **Permitido**           | Usar, copiar, modificar y distribuir con fines personales, educativos y **comerciales**, manteniendo la atribución al autor original.                                          |
+| 🍴 **Forks y variaciones** | Deben citar el proyecto original y al autor, e indicar los cambios realizados.                                                                                                |
+| 📄 **Redistribución**      | Si distribuyes copias o versiones modificadas, publica su código fuente bajo GPL-3.0 (copyleft); incluye este `LICENSE` íntegro y conserva los avisos de copyright.            |
 
 ---
 
-Hecho con TypeScript de punta a punta. [Licencia personalizada no comercial](LICENSE).
+Hecho con TypeScript de punta a punta. [Licencia GPL-3.0](LICENSE).
+
