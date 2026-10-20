@@ -541,5 +541,521 @@ Este proyecto está bajo la **Licencia GPL-3.0**; el texto completo y vinculante
 
 ---
 
+
+
+
 Hecho con TypeScript de punta a punta. [Licencia GPL-3.0](LICENSE).
 
+
+
+# TaskFlow 🗂️
+
+> Collaborative task manager featuring authentication, role-based access control, and a relational database.
+> Full-stack TypeScript project: **NestJS + Prisma + PostgreSQL** on the backend and **React + Vite + Tailwind** on the frontend.
+
+---
+
+## 📑 Table of Contents
+
+1. [Overview](https://www.google.com/search?q=%23-overview)
+2. [Tech Stack](https://www.google.com/search?q=%23-tech-stack)
+3. [Architecture](https://www.google.com/search?q=%23-architecture)
+4. [Screenshots](https://www.google.com/search?q=%23-screenshots)
+5. [Prerequisites](https://www.google.com/search?q=%23-prerequisites)
+6. [Getting Started (Single Command)](https://www.google.com/search?q=%23-getting-started-single-command)
+7. [Manual Setup (Local Development)](https://www.google.com/search?q=%23-manual-setup-local-development)
+8. [Environment Variables](https://www.google.com/search?q=%23-environment-variables)
+9. [Data Model](https://www.google.com/search?q=%23-data-model)
+10. [Roles and Permissions](https://www.google.com/search?q=%23-roles-and-permissions)
+11. [API Endpoints](https://www.google.com/search?q=%23-api-endpoints)
+12. [Project Structure](https://www.google.com/search?q=%23-project-structure)
+13. [Available Scripts](https://www.google.com/search?q=%23-available-scripts)
+14. [Testing and Coverage](https://www.google.com/search?q=%23-testing-and-coverage)
+15. [Continuous Integration](https://www.google.com/search?q=%23-continuous-integration)
+16. [Documentation](https://www.google.com/search?q=%23-documentation)
+17. [Troubleshooting](https://www.google.com/search?q=%23-troubleshooting)
+18. [License](https://www.google.com/search?q=%23-license)
+
+---
+
+## 📖 Overview
+
+**TaskFlow** enables small teams to organize their work through projects, tasks, and comments, backed by three distinct permission roles:
+
+| Feature | Description |
+| --- | --- |
+| 🔐 **JWT Authentication** | Registration, login, and refresh tokens with rotation and revocation (logout). |
+| 👥 **Roles** | `ADMIN` · `MANAGER` · `MEMBER` with authorization **strictly enforced on the backend**. |
+| 📁 **Projects** | Create, edit, archive, delete, and manage project members. |
+| 📋 **Kanban Board** | `TODO` → `IN_PROGRESS` → `DONE` columns with one-click status transitions. |
+| 💬 **Comments** | Task-level comment threads. |
+| 📊 **Dashboard** | Summary of *my tasks* by status and project progress tracking (for `ADMIN`/`MANAGER`). |
+| 🧑‍💼 **Administration** | User and role management (exclusive to `ADMIN`). |
+| 📄 **Swagger** | Interactive API documentation hosted at `/api/docs`. |
+
+---
+
+## 🧰 Tech Stack
+
+### Backend — `apps/api`
+
+| Layer | Technology |
+| --- | --- |
+| Framework | **NestJS 11** (Express 5) |
+| ORM | **Prisma 6** |
+| Database | **PostgreSQL 16** |
+| Auth | JWT (`@nestjs/jwt`) + Passport + **bcrypt** |
+| Validation | `class-validator` + `ValidationPipe` (whitelist) |
+| Documentation | **Swagger / OpenAPI** (`@nestjs/swagger`) |
+| Security | `helmet`, restricted CORS, `compression` |
+| Testing | **Jest** + **Supertest** |
+
+### Frontend — `apps/web`
+
+| Layer | Technology |
+| --- | --- |
+| UI | **React 18** + TypeScript |
+| Bundler | **Vite 8** |
+| Styling | **Tailwind CSS 4** |
+| Routing | **React Router 7** |
+| Server State | **TanStack Query 5** |
+| Client State | **Zustand** (with persistence) |
+| Forms | **React Hook Form** + **Zod** |
+| Testing | **Vitest** + Testing Library |
+
+### Infrastructure
+
+| Tool | Purpose |
+| --- | --- |
+| **Docker Compose** | `db` (PostgreSQL 16) + `api` + `web` (Nginx) |
+| **GitHub Actions** | Lint → Format → Migrations → Tests → Build |
+| **ESLint 10 + Prettier** | Code formatting and linting across both `apps` |
+
+---
+
+## 🏗️ Architecture
+
+```mermaid
+flowchart LR
+    subgraph Client["Browser (React + Vite)"]
+        UI["UI · Tailwind"] --> RQ["TanStack Query"]
+        RQ --> ST["Zustand<br/>(access + refresh token)"]
+    end
+
+    subgraph API["API (NestJS · Port 4000)"]
+        CTRL["Controllers<br/>auth · users · projects · tasks · dashboard"]
+        GUARD["Global Guards<br/>JwtAuthGuard → RolesGuard"]
+        SVC["Services<br/>+ permissions.ts"]
+        PRISMA["PrismaService"]
+        CTRL --> GUARD --> SVC --> PRISMA
+    end
+
+    DB[("PostgreSQL 16<br/>taskflow / taskflow_test")]
+
+    UI -- "HTTP + JSON<br/>Authorization: Bearer" --> CTRL
+    PRISMA -- "SQL (Prisma migrations)" --> DB
+
+    subgraph Dev["Tools"]
+        SW["Swagger /api/docs"]
+        CI["GitHub Actions CI"]
+    end
+
+    CTRL -.-> SW
+    CI -.->|"lint · test · build"| API
+
+```
+
+**Module Design Pattern:** `controller` (HTTP routing + role decorators) → `service` (business logic and permissions) → `PrismaService` (database access). Fine-grained authorization checks (*can this user touch this specific resource?*) live in `src/users/permissions.ts`, a **pure, isolated, and easily testable layer**.
+
+---
+
+## 📸 Screenshots
+
+> Actual screenshots of the application running with seeded demo data. The complete gallery (15 images, including registration, editing, permissions, Swagger, and CI) can be found in [`docs/imagenes/`](https://www.google.com/search?q=docs/imagenes/), and every screen is broken down in the [user guide](https://www.google.com/search?q=docs/USUARIO.md).
+
+**Dashboard** — task overview and project progress:
+
+**Project Detail** — members panel and Kanban board:
+
+**Task List** — filtered by status, project, and assignee:
+
+**User Management** (`ADMIN` only):
+
+---
+
+## ✅ Prerequisites
+
+| Requirement | Minimum Version | Verification Command |
+| --- | --- | --- |
+| Node.js | 24 (recommended; API runs from v20+) | `node -v` |
+| npm | 10+ | `npm -v` |
+| Git | 2.x | `git --version` |
+| Docker *(optional)* | 24+ with Compose v2 | `docker compose version` |
+| PostgreSQL *(only if not using Docker)* | 16 | `psql --version` |
+
+---
+
+## 🚀 Getting Started (Single Command)
+
+```bash
+git clone https://github.com/alberto2005-coder/taskflow.git TaskFlow
+cd TaskFlow
+cp .env.example .env          # customize credentials if needed
+docker compose up
+
+```
+
+This brings up all required services:
+
+| Service | URL | Description |
+| --- | --- | --- |
+| 🌐 Frontend | http://localhost:5173 | React (served via Nginx in production) |
+| 🔌 API | http://localhost:4000/api | NestJS |
+| 📚 Swagger | http://localhost:4000/api/docs | OpenAPI documentation |
+| 🗄️ PostgreSQL | `localhost:5432` | `taskflow` database |
+
+> The `api` container automatically executes `prisma migrate deploy` on startup.
+
+---
+
+## 🧑‍💻 Manual Setup (Local Development)
+
+Useful if you prefer running without Docker:
+
+```bash
+# 1. Monorepo dependencies (npm workspaces)
+npm install
+
+# 2. Environment configuration
+cp .env.example .env
+#   → DATABASE_URL=postgresql://postgres:postgres@localhost:5432/taskflow
+
+# 3. Local database (if PostgreSQL is installed locally):
+#    createdb taskflow && createdb taskflow_test
+#    or launch only the database container with Docker:
+docker compose up -d db
+
+# 4. Run migrations + seed demo data
+npm run db:migrate
+npm run db:seed
+
+# 5. Start API (4000) and Web (5173) concurrently
+npm run dev
+
+```
+
+### Demo Accounts (Available after `npm run db:seed`)
+
+| Email | Password | Role |
+| --- | --- | --- |
+| `admin@taskflow.dev` | `Taskflow123!` | `ADMIN` |
+| `manager@taskflow.dev` | `Taskflow123!` | `MANAGER` |
+| `member@taskflow.dev` | `Taskflow123!` | `MEMBER` |
+
+---
+
+## 🔧 Environment Variables
+
+Copy `.env.example` to `.env` in the root folder (and copy `apps/api/.env.example` to `apps/api/.env` if working only inside the backend):
+
+| Variable | Example | Description |
+| --- | --- | --- |
+| `DATABASE_URL` | `postgresql://postgres:postgres@localhost:5432/taskflow` | Primary database connection string |
+| `TEST_DATABASE_URL` | `postgresql://postgres:postgres@localhost:5432/taskflow_test` | Test suite database connection string |
+| `API_PORT` | `4000` | NestJS server port |
+| `CORS_ORIGIN` | `http://localhost:5173` | Allowed CORS origin (comma-separated for multiples) |
+| `JWT_ACCESS_SECRET` | *(long, secure random string)* | Access token signing secret |
+| `JWT_ACCESS_TTL` | `15m` | Access token lifespan |
+| `JWT_REFRESH_SECRET` | *(different secure random string)* | Refresh token signing secret |
+| `JWT_REFRESH_TTL` | `7d` | Refresh token lifespan |
+| `VITE_API_URL` | `http://localhost:4000/api` | Base API URL consumed by the client app |
+
+> ⚠️ Never commit real production `.env` files (`.env` is ignored via `.gitignore`).
+
+---
+
+## 🗃️ Data Model
+
+```mermaid
+erDiagram
+    USER ||--o{ PROJECT : "owns (ownerId)"
+    USER ||--o{ PROJECT_MEMBER : "belongs to"
+    PROJECT ||--o{ PROJECT_MEMBER : "has"
+    PROJECT ||--o{ TASK : "contains"
+    USER ||--o{ TASK : "assigned to (assigneeId)"
+    TASK ||--o{ COMMENT : "receives"
+    USER ||--o{ COMMENT : "writes"
+    USER ||--o{ REFRESH_TOKEN : "has"
+
+    USER {
+      uuid id PK
+      string email UK
+      string name
+      string passwordHash
+      enum role "ADMIN | MANAGER | MEMBER"
+      datetime createdAt
+    }
+    PROJECT {
+      uuid id PK
+      string name
+      string description
+      enum status "ACTIVE | ARCHIVED"
+      uuid ownerId FK
+    }
+    PROJECT_MEMBER {
+      uuid projectId PK_FK
+      uuid userId PK_FK
+      datetime joinedAt
+    }
+    TASK {
+      uuid id PK
+      string title
+      string description
+      enum status "TODO | IN_PROGRESS | DONE"
+      enum priority "LOW | MEDIUM | HIGH"
+      uuid projectId FK
+      uuid assigneeId FK
+    }
+    COMMENT {
+      uuid id PK
+      string content
+      uuid taskId FK
+      uuid authorId FK
+    }
+    REFRESH_TOKEN {
+      uuid id PK
+      string tokenHash UK "SHA-256"
+      datetime expiresAt
+      uuid userId FK
+    }
+
+```
+
+Migrations are stored in `apps/api/prisma/migrations/` and applied using `npm run db:migrate` (development) or `prisma migrate deploy` (production/CI).
+
+---
+
+## 🔐 Roles and Permissions
+
+| Action | `ADMIN` | `MANAGER` | `MEMBER` |
+| --- | --- | --- | --- |
+| Manage users and roles | ✅ | ❌ | ❌ |
+| Create projects | ✅ | ✅ | ❌ |
+| Edit / archive / delete projects | ✅ | Owned projects only | ❌ |
+| Add or remove project members | ✅ | Owned projects only | ❌ |
+| Create, edit, or delete tasks | ✅ | Owned projects only | ❌ |
+| Change task status | ✅ | Owned projects only | **Assigned tasks only** |
+| Comment on tasks | ✅ | ✅ | ✅ (in assigned projects) |
+| View progress across projects | ✅ | ✅ | ❌ |
+| View projects | All | Owned + member projects | Member projects only |
+| View tasks (`GET /tasks`) | All | Tasks in their projects | **Assigned tasks only** |
+
+> These authorization rules are enforced strictly in the **backend** (`permissions.ts` + guards). The UI merely hides controls and does not replace real server security.
+
+---
+
+## 🌐 API Endpoints
+
+Full interactive API testing is available at **[`/api/docs`](http://localhost:4000/api/docs)**.
+
+Field-by-field payload specifications can be viewed in [`docs/API.md`](https://www.google.com/search?q=docs/API.md).
+
+| Method | Path | Access |
+| --- | --- | --- |
+| `POST` | `/api/auth/register` | Public |
+| `POST` | `/api/auth/login` | Public |
+| `POST` | `/api/auth/refresh` | Public |
+| `POST` | `/api/auth/logout` | Public |
+| `GET` | `/api/auth/me` | Authenticated |
+| `GET` | `/api/health` | Public |
+| `GET` · `POST` | `/api/users` | `ADMIN` |
+| `GET` · `PATCH` · `DELETE` | `/api/users/:id` | `ADMIN` or profile owner |
+| `PATCH` | `/api/users/:id/role` | `ADMIN` |
+| `GET` · `POST` | `/api/projects` | Authenticated · Creation: `MANAGER`/`ADMIN` |
+| `GET` · `PATCH` · `DELETE` | `/api/projects/:id` | Project visibility / management |
+| `POST` · `DELETE` | `/api/projects/:id/members[/:userId]` | Project owner or `ADMIN` |
+| `GET` · `POST` | `/api/projects/:id/tasks` | Project visibility / Creation: `MANAGER`/`ADMIN` |
+| `GET` | `/api/tasks` | Role-based |
+| `GET` · `PATCH` · `DELETE` | `/api/tasks/:id` | Permission-based |
+| `PATCH` | `/api/tasks/:id/status` | Assignee, owner, or `ADMIN` |
+| `GET` · `POST` | `/api/tasks/:id/comments` | Project members |
+| `GET` | `/api/dashboard` | Authenticated |
+
+**Error Responses**: `400` Validation error · `401` Unauthorized / missing session · `403` Insufficient permissions · `404` Resource missing or restricted · `409` Conflict (duplicate email).
+
+Interactive documentation preview in `/api/docs`:
+
+---
+
+## 📂 Project Structure
+
+```text
+TaskFlow/
+├── .github/workflows/ci.yml     # CI Pipeline
+├── docker-compose.yml           # db + api + web
+├── package.json                 # npm workspaces (root)
+├── tsconfig.base.json
+├── .env.example
+├── docs/
+│   ├── API.md                   # REST contract documentation
+│   ├── USUARIO.md               # User manual
+│   ├── DESARROLLADOR.md         # Developer guide
+│   └── DESPLIEGUE.md            # Deployment & ops guide
+└── apps/
+    ├── api/                     # NestJS
+    │   ├── prisma/              # schema.prisma · migrations/ · seed.ts
+    │   ├── src/
+    │   │   ├── auth/            # register · login · refresh · JWT strategy
+    │   │   ├── users/           # user management + permissions.ts
+    │   │   ├── projects/        # projects and members
+    │   │   ├── tasks/           # tasks and comments
+    │   │   ├── dashboard/       # user analytics & overview
+    │   │   ├── prisma/          # PrismaService (global)
+    │   │   └── common/          # guards · decorators · shared DTOs
+    │   └── test/                # ALL tests (unit + integration)
+    └── web/                     # React + Vite
+        └── src/
+            ├── features/        # auth · dashboard · projects · tasks · users
+            ├── components/      # reusable UI components
+            ├── lib/             # typed API client
+            ├── store/           # Zustand (session storage)
+            └── routes/          # router & navigation guards
+
+```
+
+---
+
+## 📜 Available Scripts
+
+In the **root** monorepo directory:
+
+| Script | Description |
+| --- | --- |
+| `npm run dev` | Runs API (4000) + Web (5173) concurrently |
+| `npm run build` | Builds both applications for production |
+| `npm test` | Executes all test suites |
+| `npm run lint` | Runs ESLint across `apps/api` and `apps/web` |
+| `npm run format` / `format:check` | Formats or validates code style via Prettier |
+| `npm run db:up` / `db:down` | Spins up / tears down the Docker PostgreSQL database |
+| `npm run db:migrate` | Runs `prisma migrate dev` |
+| `npm run db:seed` | Populates demo data |
+| `npm run db:reset` | Drops, re-migrates, and re-seeds the development database |
+
+Inside `apps/api`: `dev`, `build`, `test`, `test:cov`, `lint`, `prisma:generate`, `prisma:migrate`, `prisma:migrate:deploy`, `prisma:seed`, `prisma:studio`.
+
+Inside `apps/web`: `dev`, `build`, `preview`, `test`, `test:watch`, `lint`.
+
+---
+
+## 🧪 Testing and Coverage
+
+```bash
+npm test              # Run everything
+npm run test:api      # Run API tests only
+npm run test:web      # Run Frontend tests only
+npm run test:cov -w apps/api   # Run API tests with coverage report
+
+```
+
+**Testing Strategy (detailed in `docs/DESARROLLADOR.md`):**
+
+| Level | Tool | Scope |
+| --- | --- | --- |
+| Unit | Jest | Permission evaluation, auth/user business logic using mocked Prisma |
+| Integration | Jest + Supertest | End-to-end HTTP pipeline against a **live PostgreSQL instance** (`taskflow_test`) |
+| Component | Vitest + RTL | Form validations, Kanban board interactions, API client (including 401 refresh flows) |
+
+**Verified Test Results (2026-10-01):**
+
+| Suite | Command | Outcome |
+| --- | --- | --- |
+| API (unit + integration) | `npm run test -w apps/api` | ✅ **82/82 tests passing** across 7 suites (≈ 20 s) |
+| Frontend (components) | `npm run test -w apps/web` | ✅ **17/17 tests passing** across 4 files (≈ 8.5 s) |
+| API Coverage | `npm run test:cov -w apps/api` | ✅ `exit 0` · Global **94.26%** · `permissions.ts` **100%** · `src/auth` 98.63% |
+
+The full execution summary (suites breakdown and coverage report) can be found in [`docs/DESARROLLADOR.md` §8](https://www.google.com/search?q=docs/DESARROLLADOR.md).
+
+* All backend tests are located in **`apps/api/test/`**.
+* Tests run sequentially (`maxWorkers: 1`) to prevent collisions across the shared test database; each test file begins with truncated tables.
+* If PostgreSQL is unreachable, integration tests are **safely skipped** with a warning, allowing unit tests to run unhindered.
+* Target coverage thresholds: **`src/auth` ≥ 70%** and **`src/users/permissions.ts` ≥ 90%** (configured per directory/path rather than globs, as Jest assesses glob thresholds on a **file-by-file** basis).
+
+---
+
+## 🔁 Continuous Integration
+
+`.github/workflows/ci.yml` runs automatically on every pull request and push to `main`:
+
+1. Boots a `postgres:16-alpine` test service.
+2. `npm ci`
+3. `prisma generate`
+4. `npm run lint` + `npm run format:check`
+5. `prisma migrate deploy`
+6. `npm test`
+7. `npm run build`
+
+Sample GitHub Actions run (first push, 2026-10-01):
+
+> The status badge at the top of this README reflects the real-time status of this CI workflow.
+
+---
+
+## 📚 Documentation
+
+| Document | Scope |
+| --- | --- |
+| [`README.md`](README.md) | This file: overview, stack, and quickstart guide |
+| [`docs/USUARIO.md`](https://www.google.com/search?q=docs/USUARIO.md) | User guide with visual walkthroughs and step-by-step flows |
+| [`docs/DESARROLLADOR.md`](https://www.google.com/search?q=docs/DESARROLLADOR.md) | Developer guide: architectural patterns, conventions, and test setups |
+| [`docs/API.md`](https://www.google.com/search?q=docs/API.md) | Complete REST specification (source of truth for frontend & backend) |
+| [`docs/DESPLIEGUE.md`](https://www.google.com/search?q=docs/DESPLIEGUE.md) | Deployment instructions for Docker, CI/CD, and operations |
+| Swagger (`/api/docs`) | Interactive OpenAPI interface |
+
+---
+
+## 🩹 Troubleshooting
+
+| Symptom | Probable Cause | Resolution |
+| --- | --- | --- |
+| `Can't reach database server at localhost:5432` | PostgreSQL is down | Run `docker compose up -d db` or start your local service |
+| `Password authentication failed` | Credential mismatch | Check `DATABASE_URL` in `.env` against your PostgreSQL configuration |
+| Integration tests skipped | Database unavailable | Spin up `db` and re-run `npm test` |
+| Port 4000 or 5173 already in use | Conflicting local process | Update `API_PORT` or `server.port` inside `vite.config.ts` |
+| `PrismaClient` is out of sync | Schema changed without generation | Run `npm run prisma:generate -w apps/api` |
+| Migration conflict | Out-of-sync local migrations | Run `npm run db:reset` (⚠️ deletes development data) |
+| CORS rejected by browser | Origin not whitelisted | Add your frontend origin URL to `CORS_ORIGIN` |
+
+---
+
+## 📌 Project Status & Roadmap
+
+* [x] Monorepo managed with npm workspaces, ESLint + Prettier
+* [x] REST API with JWT, refresh token rotation, and RBAC
+* [x] Projects, memberships, tasks, status lifecycles, and comments
+* [x] Dashboard tracking metrics and project progress
+* [x] Swagger documentation at `/api/docs`
+* [x] Unit and integration tests with CI pipeline
+* [x] React frontend with Kanban view, validated forms, and user administration
+* [ ] Real-time updates via WebSockets
+* [ ] File attachments and task tags
+* [ ] Exportable reports
+
+---
+
+## 📜 License
+
+**Copyright © 2026 Alberto Ortiz (`alberto2005-coder`).**
+
+> **Original Repository:** [https://github.com/alberto2005-coder/taskflow](https://github.com/alberto2005-coder/taskflow) — attribution to the original author must remain visible on all forks and derivatives.
+
+This project is licensed under the **GPL-3.0 License**; the complete, legally binding terms can be found in [`LICENSE`](https://www.google.com/search?q=LICENSE). Summary of terms:
+
+|  |  |
+| --- | --- |
+| ✅ **Permissions** | Use, copy, modify, and distribute for personal, educational, and **commercial** purposes, provided original author attribution is preserved. |
+| 🍴 **Forks & Derivatives** | Must retain attribution to the original author/project and document any modifications made. |
+| 📄 **Redistribution** | Any redistributed copies or modifications must be published under the GPL-3.0 license (copyleft); must retain the full `LICENSE` file and copyright notices. |
+
+---
+
+Built end-to-end with TypeScript. [GPL-3.0 License](https://www.google.com/search?q=LICENSE).
