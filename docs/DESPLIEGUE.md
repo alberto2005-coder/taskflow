@@ -133,9 +133,13 @@ openssl rand -base64 48
 Ambos se construyen con **contexto en la raíz** del repositorio:
 
 ```bash
-docker build -f apps/api/Dockerfile .
-docker build -f apps/web/Dockerfile . --build-arg VITE_API_URL=/api
+# --pull fuerza a refrescar la imagen base node:24-alpine al parche mas reciente
+docker build --pull -f apps/api/Dockerfile .
+docker build --pull -f apps/web/Dockerfile . --build-arg VITE_API_URL=/api
 ```
+
+> `node:24-alpine` es una etiqueta móvil: sin `--pull` Docker puede reutilizar una capa
+> base antigua con un parche de Node desactualizado.
 
 `nginx.conf` sirve `dist/` con `try_files $uri /index.html` (SPA) y reenvía `/api/` a
 `http://api:4000/api/`.
