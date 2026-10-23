@@ -127,7 +127,7 @@ openssl rand -base64 48
 
 | Dockerfile            | Etapas                                                                                                                      | Resultado                      |
 | --------------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
-| `apps/api/Dockerfile` | `build` (npm install + `prisma generate` + `nest build`) → `deps` (producción) → `runner` (node:20-alpine, usuario no root) | Imagen con `dist/` y `prisma/` |
+| `apps/api/Dockerfile` | `build` (npm install + `prisma generate` + `nest build`) → `deps` (producción) → `runner` (node:24-alpine, usuario no root) | Imagen con `dist/` y `prisma/` |
 | `apps/web/Dockerfile` | `build` (ARG `VITE_API_URL=/api`, `vite build`) → `nginx:alpine` con `nginx.conf`                                           | Estático + proxy `/api`        |
 
 Ambos se construyen con **contexto en la raíz** del repositorio:

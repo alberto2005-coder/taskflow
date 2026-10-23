@@ -2,7 +2,7 @@
 # TaskFlow Web — multi-stage build (contexto: raíz del repo)
 #   docker build -f apps/web/Dockerfile . --build-arg VITE_API_URL=/api
 # ============================================================
-FROM node:20-alpine AS build
+FROM node:24-alpine AS build
 WORKDIR /app
 
 # /api → Nginx hace de proxy hacia el contenedor de la API
