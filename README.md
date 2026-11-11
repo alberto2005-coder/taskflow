@@ -1,42 +1,49 @@
 # TaskFlow 🗂️
 
-> Gestor de tareas colaborativo con autenticación, roles y base de datos relacional.
-> Proyecto full-stack en TypeScript: **NestJS + Prisma + PostgreSQL** en el backend y **React + Vite + Tailwind** en el frontend.
-
 [![CI](https://img.shields.io/github/actions/workflow/status/alberto2005-coder/taskflow/ci.yml?branch=main&label=CI&logo=github)](https://github.com/alberto2005-coder/taskflow/actions/workflows/ci.yml)
 ![NestJS](https://img.shields.io/badge/NestJS-11-E0234E?logo=nestjs&logoColor=white)
 ![Prisma](https://img.shields.io/badge/Prisma-6-2D3748?logo=prisma&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4169E1?logo=postgresql&logoColor=white)
 ![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript&logoColor=white)
-[![Licencia](https://img.shields.io/badge/Licencia-No%20comercial-CB0000)](LICENSE)
+[![Licencia](https://img.shields.io/badge/Licencia-GPL--3.0-CB0000)](LICENSE)
+
+[Español](#español) · [English](#english)
 
 ---
 
-## 📑 Índice
+## Español
 
-1. [Descripción](#-descripción)
-2. [Stack tecnológico](#-stack-tecnológico)
-3. [Arquitectura](#-arquitectura)
-4. [Capturas](#-capturas)
-5. [Requisitos previos](#-requisitos-previos)
-6. [Puesta en marcha (un solo comando)](#-puesta-en-marcha-un-solo-comando)
-7. [Arranque manual (desarrollo local)](#-arranque-manual-desarrollo-local)
-8. [Variables de entorno](#-variables-de-entorno)
-9. [Modelo de datos](#-modelo-de-datos)
-10. [Roles y permisos](#-roles-y-permisos)
-11. [Endpoints de la API](#-endpoints-de-la-api)
-12. [Estructura del proyecto](#-estructura-del-proyecto)
-13. [Scripts disponibles](#-scripts-disponibles)
-14. [Pruebas y cobertura](#-pruebas-y-cobertura)
-15. [Integración continua](#-integración-continua)
-16. [Documentación](#-documentación)
-17. [Solución de problemas](#-solución-de-problemas)
-18. [Licencia](#-licencia)
+> Gestor de tareas colaborativo con autenticación, roles y base de datos relacional.
+> Proyecto full-stack en TypeScript: **NestJS + Prisma + PostgreSQL** en el backend y **React + Vite + Tailwind** en el frontend.
 
 ---
 
-## 📖 Descripción
+### Índice
+
+1. [Descripción](#descripción)
+2. [Stack tecnológico](#stack-tecnológico)
+3. [Arquitectura](#arquitectura)
+4. [Capturas](#capturas)
+5. [Requisitos previos](#requisitos-previos)
+6. [Puesta en marcha (un solo comando)](#puesta-en-marcha-un-solo-comando)
+7. [Arranque manual (desarrollo local)](#arranque-manual-desarrollo-local)
+8. [Variables de entorno](#variables-de-entorno)
+9. [Modelo de datos](#modelo-de-datos)
+10. [Roles y permisos](#roles-y-permisos)
+11. [Endpoints de la API](#endpoints-de-la-api)
+12. [Estructura del proyecto](#estructura-del-proyecto)
+13. [Scripts disponibles](#scripts-disponibles)
+14. [Pruebas y cobertura](#pruebas-y-cobertura)
+15. [Integración continua](#integración-continua)
+16. [Documentación](#documentación)
+17. [Solución de problemas](#solución-de-problemas)
+18. [Estado y hoja de ruta](#estado-y-hoja-de-ruta)
+19. [Licencia](#licencia)
+
+---
+
+### Descripción
 
 **TaskFlow** permite a equipos pequeños organizar su trabajo con proyectos, tareas y comentarios,
 apoyándose en tres roles con permisos distintos:
@@ -54,9 +61,9 @@ apoyándose en tres roles con permisos distintos:
 
 ---
 
-## 🧰 Stack tecnológico
+### Stack tecnológico
 
-### Backend — `apps/api`
+#### Backend — `apps/api`
 
 | Capa          | Tecnología                                       |
 | ------------- | ------------------------------------------------ |
@@ -69,7 +76,7 @@ apoyándose en tres roles con permisos distintos:
 | Seguridad     | `helmet`, CORS restringido, `compression`        |
 | Tests         | **Jest** + **Supertest**                         |
 
-### Frontend — `apps/web`
+#### Frontend — `apps/web`
 
 | Capa                | Tecnología                     |
 | ------------------- | ------------------------------ |
@@ -82,7 +89,7 @@ apoyándose en tres roles con permisos distintos:
 | Formularios         | **React Hook Form** + **Zod**  |
 | Tests               | **Vitest** + Testing Library   |
 
-### Infraestructura
+#### Infraestructura
 
 | Herramienta              | Uso                                          |
 | ------------------------ | -------------------------------------------- |
@@ -92,7 +99,7 @@ apoyándose en tres roles con permisos distintos:
 
 ---
 
-## 🏗️ Arquitectura
+### Arquitectura
 
 ```mermaid
 flowchart LR
@@ -129,7 +136,7 @@ _este_ recurso?) vive en `src/users/permissions.ts`, una capa **pura y testeable
 
 ---
 
-## 📸 Capturas
+### Capturas
 
 > Captura real de la aplicación funcionando sobre los datos del seed. La galería completa
 > (15 imágenes, incluidas registro, edición, permisos, Swagger y la CI) está en
@@ -154,7 +161,7 @@ _este_ recurso?) vive en `src/users/permissions.ts`, una capa **pura y testeable
 
 ---
 
-## ✅ Requisitos previos
+### Requisitos previos
 
 | Requisito                             | Versión mínima                                | Comprobación             |
 | ------------------------------------- | --------------------------------------------- | ------------------------ |
@@ -166,7 +173,7 @@ _este_ recurso?) vive en `src/users/permissions.ts`, una capa **pura y testeable
 
 ---
 
-## 🚀 Puesta en marcha (un solo comando)
+### Puesta en marcha (un solo comando)
 
 ```bash
 git clone https://github.com/alberto2005-coder/taskflow.git TaskFlow
@@ -188,7 +195,7 @@ Con eso quedan levantados:
 
 ---
 
-## 🧑‍💻 Arranque manual (desarrollo local)
+### Arranque manual (desarrollo local)
 
 Útil si no tienes Docker:
 
@@ -213,7 +220,7 @@ npm run db:seed
 npm run dev
 ```
 
-### Usuarios de demostración (tras `npm run db:seed`)
+#### Usuarios de demostración (tras `npm run db:seed`)
 
 | Email                  | Contraseña     | Rol       |
 | ---------------------- | -------------- | --------- |
@@ -223,7 +230,7 @@ npm run dev
 
 ---
 
-## 🔧 Variables de entorno
+### Variables de entorno
 
 Copia `.env.example` a `.env` en la raíz (y `apps/api/.env.example` a `apps/api/.env` si trabajas
 solo con la API):
@@ -244,7 +251,7 @@ solo con la API):
 
 ---
 
-## 🗃️ Modelo de datos
+### Modelo de datos
 
 ```mermaid
 erDiagram
@@ -305,7 +312,7 @@ Las migraciones viven en `apps/api/prisma/migrations/` y se aplican con
 
 ---
 
-## 🔐 Roles y permisos
+### Roles y permisos
 
 | Acción                              | `ADMIN` |             `MANAGER`              |          `MEMBER`           |
 | :---------------------------------- | :-----: | :--------------------------------: | :-------------------------: |
@@ -325,7 +332,7 @@ Las migraciones viven en `apps/api/prisma/migrations/` y se aplican con
 
 ---
 
-## 🌐 Endpoints de la API
+### Endpoints de la API
 
 Documentación completa y _try-it-out_ en **[`/api/docs`](http://localhost:4000/api/docs)**.
 Detalle campo a campo en [`docs/API.md`](docs/API.md).
@@ -360,7 +367,7 @@ Vista real de la documentación interactiva en `/api/docs`:
 
 ---
 
-## 📂 Estructura del proyecto
+### Estructura del proyecto
 
 ```text
 TaskFlow/
@@ -397,7 +404,7 @@ TaskFlow/
 
 ---
 
-## 📜 Scripts disponibles
+### Scripts disponibles
 
 En la **raíz** del monorepo:
 
@@ -420,7 +427,7 @@ Dentro de `apps/web`: `dev`, `build`, `preview`, `test`, `test:watch`, `lint`.
 
 ---
 
-## 🧪 Pruebas y cobertura
+### Pruebas y cobertura
 
 ```bash
 npm test              # todo
@@ -462,7 +469,7 @@ La salida íntegra (listado de suites y tabla de cobertura) está en
 
 ---
 
-## 🔁 Integración continua
+### Integración continua
 
 `.github/workflows/ci.yml` se ejecuta en cada _push_ y _pull request_ a `main`:
 
@@ -482,7 +489,7 @@ Pasada real en GitHub Actions (primer push, 2026-10-01):
 
 ---
 
-## 📚 Documentación
+### Documentación
 
 | Documento                                        | Contenido                                                    |
 | ------------------------------------------------ | ------------------------------------------------------------ |
@@ -495,7 +502,7 @@ Pasada real en GitHub Actions (primer push, 2026-10-01):
 
 ---
 
-## 🩹 Solución de problemas
+### Solución de problemas
 
 | Síntoma                                         | Causa probable                  | Solución                                                   |
 | ----------------------------------------------- | ------------------------------- | ---------------------------------------------------------- |
@@ -509,7 +516,7 @@ Pasada real en GitHub Actions (primer push, 2026-10-01):
 
 ---
 
-## 📌 Estado y hoja de ruta
+### Estado y hoja de ruta
 
 - [x] Monorepo con npm workspaces, ESLint + Prettier
 - [x] API REST con JWT, rotación de refresh tokens y roles
@@ -524,7 +531,7 @@ Pasada real en GitHub Actions (primer push, 2026-10-01):
 
 ---
 
-## 📜 Licencia
+### Licencia
 
 **Copyright © 2026 Alberto Ortiz (`alberto2005-coder`).**
 
@@ -544,37 +551,40 @@ Este proyecto está bajo la **Licencia GPL-3.0**; el texto completo y vinculante
 
 Hecho con TypeScript de punta a punta. [Licencia GPL-3.0](LICENSE).
 
-# TaskFlow 🗂️
+---
+
+## English
 
 > Collaborative task manager featuring authentication, role-based access control, and a relational database.
 > Full-stack TypeScript project: **NestJS + Prisma + PostgreSQL** on the backend and **React + Vite + Tailwind** on the frontend.
 
 ---
 
-## 📑 Table of Contents
+### Table of contents
 
-1. [Overview](https://www.google.com/search?q=%23-overview)
-2. [Tech Stack](https://www.google.com/search?q=%23-tech-stack)
-3. [Architecture](https://www.google.com/search?q=%23-architecture)
-4. [Screenshots](https://www.google.com/search?q=%23-screenshots)
-5. [Prerequisites](https://www.google.com/search?q=%23-prerequisites)
-6. [Getting Started (Single Command)](https://www.google.com/search?q=%23-getting-started-single-command)
-7. [Manual Setup (Local Development)](https://www.google.com/search?q=%23-manual-setup-local-development)
-8. [Environment Variables](https://www.google.com/search?q=%23-environment-variables)
-9. [Data Model](https://www.google.com/search?q=%23-data-model)
-10. [Roles and Permissions](https://www.google.com/search?q=%23-roles-and-permissions)
-11. [API Endpoints](https://www.google.com/search?q=%23-api-endpoints)
-12. [Project Structure](https://www.google.com/search?q=%23-project-structure)
-13. [Available Scripts](https://www.google.com/search?q=%23-available-scripts)
-14. [Testing and Coverage](https://www.google.com/search?q=%23-testing-and-coverage)
-15. [Continuous Integration](https://www.google.com/search?q=%23-continuous-integration)
-16. [Documentation](https://www.google.com/search?q=%23-documentation)
-17. [Troubleshooting](https://www.google.com/search?q=%23-troubleshooting)
-18. [License](https://www.google.com/search?q=%23-license)
+1. [Overview](#overview)
+2. [Tech Stack](#tech-stack)
+3. [Architecture](#architecture)
+4. [Screenshots](#screenshots)
+5. [Prerequisites](#prerequisites)
+6. [Getting Started (Single Command)](#getting-started-single-command)
+7. [Manual Setup (Local Development)](#manual-setup-local-development)
+8. [Environment Variables](#environment-variables)
+9. [Data Model](#data-model)
+10. [Roles and Permissions](#roles-and-permissions)
+11. [API Endpoints](#api-endpoints)
+12. [Project Structure](#project-structure)
+13. [Available Scripts](#available-scripts)
+14. [Testing and Coverage](#testing-and-coverage)
+15. [Continuous Integration](#continuous-integration)
+16. [Documentation](#documentation)
+17. [Troubleshooting](#troubleshooting)
+18. [Project Status & Roadmap](#project-status-roadmap)
+19. [License](#license)
 
 ---
 
-## 📖 Overview
+### Overview
 
 **TaskFlow** enables small teams to organize their work through projects, tasks, and comments, backed by three distinct permission roles:
 
@@ -591,9 +601,9 @@ Hecho con TypeScript de punta a punta. [Licencia GPL-3.0](LICENSE).
 
 ---
 
-## 🧰 Tech Stack
+### Tech Stack
 
-### Backend — `apps/api`
+#### Backend — `apps/api`
 
 | Layer         | Technology                                       |
 | ------------- | ------------------------------------------------ |
@@ -606,7 +616,7 @@ Hecho con TypeScript de punta a punta. [Licencia GPL-3.0](LICENSE).
 | Security      | `helmet`, restricted CORS, `compression`         |
 | Testing       | **Jest** + **Supertest**                         |
 
-### Frontend — `apps/web`
+#### Frontend — `apps/web`
 
 | Layer        | Technology                     |
 | ------------ | ------------------------------ |
@@ -619,7 +629,7 @@ Hecho con TypeScript de punta a punta. [Licencia GPL-3.0](LICENSE).
 | Forms        | **React Hook Form** + **Zod**  |
 | Testing      | **Vitest** + Testing Library   |
 
-### Infrastructure
+#### Infrastructure
 
 | Tool                     | Purpose                                        |
 | ------------------------ | ---------------------------------------------- |
@@ -629,7 +639,7 @@ Hecho con TypeScript de punta a punta. [Licencia GPL-3.0](LICENSE).
 
 ---
 
-## 🏗️ Architecture
+### Architecture
 
 ```mermaid
 flowchart LR
@@ -665,9 +675,9 @@ flowchart LR
 
 ---
 
-## 📸 Screenshots
+### Screenshots
 
-> Actual screenshots of the application running with seeded demo data. The complete gallery (15 images, including registration, editing, permissions, Swagger, and CI) can be found in [`docs/imagenes/`](https://www.google.com/search?q=docs/imagenes/), and every screen is broken down in the [user guide](https://www.google.com/search?q=docs/USUARIO.md).
+> Actual screenshots of the application running with seeded demo data. The complete gallery (15 images, including registration, editing, permissions, Swagger, and CI) can be found in [`docs/imagenes/`](docs/imagenes/), and every screen is broken down in the [user guide](docs/USUARIO.md).
 
 **Dashboard** — task overview and project progress:
 
@@ -679,7 +689,7 @@ flowchart LR
 
 ---
 
-## ✅ Prerequisites
+### Prerequisites
 
 | Requirement                             | Minimum Version                      | Verification Command     |
 | --------------------------------------- | ------------------------------------ | ------------------------ |
@@ -691,7 +701,7 @@ flowchart LR
 
 ---
 
-## 🚀 Getting Started (Single Command)
+### Getting Started (Single Command)
 
 ```bash
 git clone https://github.com/alberto2005-coder/taskflow.git TaskFlow
@@ -714,7 +724,7 @@ This brings up all required services:
 
 ---
 
-## 🧑‍💻 Manual Setup (Local Development)
+### Manual Setup (Local Development)
 
 Useful if you prefer running without Docker:
 
@@ -740,7 +750,7 @@ npm run dev
 
 ```
 
-### Demo Accounts (Available after `npm run db:seed`)
+#### Demo Accounts (Available after `npm run db:seed`)
 
 | Email                  | Password       | Role      |
 | ---------------------- | -------------- | --------- |
@@ -750,7 +760,7 @@ npm run dev
 
 ---
 
-## 🔧 Environment Variables
+### Environment Variables
 
 Copy `.env.example` to `.env` in the root folder (and copy `apps/api/.env.example` to `apps/api/.env` if working only inside the backend):
 
@@ -770,7 +780,7 @@ Copy `.env.example` to `.env` in the root folder (and copy `apps/api/.env.exampl
 
 ---
 
-## 🗃️ Data Model
+### Data Model
 
 ```mermaid
 erDiagram
@@ -831,7 +841,7 @@ Migrations are stored in `apps/api/prisma/migrations/` and applied using `npm ru
 
 ---
 
-## 🔐 Roles and Permissions
+### Roles and Permissions
 
 | Action                           | `ADMIN` | `MANAGER`               | `MEMBER`                  |
 | -------------------------------- | ------- | ----------------------- | ------------------------- |
@@ -850,11 +860,11 @@ Migrations are stored in `apps/api/prisma/migrations/` and applied using `npm ru
 
 ---
 
-## 🌐 API Endpoints
+### API Endpoints
 
 Full interactive API testing is available at **[`/api/docs`](http://localhost:4000/api/docs)**.
 
-Field-by-field payload specifications can be viewed in [`docs/API.md`](https://www.google.com/search?q=docs/API.md).
+Field-by-field payload specifications can be viewed in [`docs/API.md`](docs/API.md).
 
 | Method                     | Path                                  | Access                                           |
 | -------------------------- | ------------------------------------- | ------------------------------------------------ |
@@ -883,7 +893,7 @@ Interactive documentation preview in `/api/docs`:
 
 ---
 
-## 📂 Project Structure
+### Project Structure
 
 ```text
 TaskFlow/
@@ -921,7 +931,7 @@ TaskFlow/
 
 ---
 
-## 📜 Available Scripts
+### Available Scripts
 
 In the **root** monorepo directory:
 
@@ -943,7 +953,7 @@ Inside `apps/web`: `dev`, `build`, `preview`, `test`, `test:watch`, `lint`.
 
 ---
 
-## 🧪 Testing and Coverage
+### Testing and Coverage
 
 ```bash
 npm test              # Run everything
@@ -969,7 +979,7 @@ npm run test:cov -w apps/api   # Run API tests with coverage report
 | Frontend (components)    | `npm run test -w apps/web`     | ✅ **17/17 tests passing** across 4 files (≈ 8.5 s)                             |
 | API Coverage             | `npm run test:cov -w apps/api` | ✅ `exit 0` · Global **94.26%** · `permissions.ts` **100%** · `src/auth` 98.63% |
 
-The full execution summary (suites breakdown and coverage report) can be found in [`docs/DESARROLLADOR.md` §8](https://www.google.com/search?q=docs/DESARROLLADOR.md).
+The full execution summary (suites breakdown and coverage report) can be found in [`docs/DESARROLLADOR.md` §8](docs/DESARROLLADOR.md).
 
 - All backend tests are located in **`apps/api/test/`**.
 - Tests run sequentially (`maxWorkers: 1`) to prevent collisions across the shared test database; each test file begins with truncated tables.
@@ -978,7 +988,7 @@ The full execution summary (suites breakdown and coverage report) can be found i
 
 ---
 
-## 🔁 Continuous Integration
+### Continuous Integration
 
 `.github/workflows/ci.yml` runs automatically on every pull request and push to `main`:
 
@@ -996,20 +1006,20 @@ Sample GitHub Actions run (first push, 2026-10-01):
 
 ---
 
-## 📚 Documentation
+### Documentation
 
 | Document                                                                         | Scope                                                                 |
 | -------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | [`README.md`](README.md)                                                         | This file: overview, stack, and quickstart guide                      |
-| [`docs/USUARIO.md`](https://www.google.com/search?q=docs/USUARIO.md)             | User guide with visual walkthroughs and step-by-step flows            |
-| [`docs/DESARROLLADOR.md`](https://www.google.com/search?q=docs/DESARROLLADOR.md) | Developer guide: architectural patterns, conventions, and test setups |
-| [`docs/API.md`](https://www.google.com/search?q=docs/API.md)                     | Complete REST specification (source of truth for frontend & backend)  |
-| [`docs/DESPLIEGUE.md`](https://www.google.com/search?q=docs/DESPLIEGUE.md)       | Deployment instructions for Docker, CI/CD, and operations             |
+| [`docs/USUARIO.md`](docs/USUARIO.md)             | User guide with visual walkthroughs and step-by-step flows            |
+| [`docs/DESARROLLADOR.md`](docs/DESARROLLADOR.md) | Developer guide: architectural patterns, conventions, and test setups |
+| [`docs/API.md`](docs/API.md)                     | Complete REST specification (source of truth for frontend & backend)  |
+| [`docs/DESPLIEGUE.md`](docs/DESPLIEGUE.md)       | Deployment instructions for Docker, CI/CD, and operations             |
 | Swagger (`/api/docs`)                                                            | Interactive OpenAPI interface                                         |
 
 ---
 
-## 🩹 Troubleshooting
+### Troubleshooting
 
 | Symptom                                         | Probable Cause                    | Resolution                                                           |
 | ----------------------------------------------- | --------------------------------- | -------------------------------------------------------------------- |
@@ -1023,7 +1033,7 @@ Sample GitHub Actions run (first push, 2026-10-01):
 
 ---
 
-## 📌 Project Status & Roadmap
+### Project Status & Roadmap
 
 - [x] Monorepo managed with npm workspaces, ESLint + Prettier
 - [x] REST API with JWT, refresh token rotation, and RBAC
@@ -1038,13 +1048,13 @@ Sample GitHub Actions run (first push, 2026-10-01):
 
 ---
 
-## 📜 License
+### License
 
 **Copyright © 2026 Alberto Ortiz (`alberto2005-coder`).**
 
 > **Original Repository:** [https://github.com/alberto2005-coder/taskflow](https://github.com/alberto2005-coder/taskflow) — attribution to the original author must remain visible on all forks and derivatives.
 
-This project is licensed under the **GPL-3.0 License**; the complete, legally binding terms can be found in [`LICENSE`](https://www.google.com/search?q=LICENSE). Summary of terms:
+This project is licensed under the **GPL-3.0 License**; the complete, legally binding terms can be found in [`LICENSE`](LICENSE). Summary of terms:
 
 |                            |                                                                                                                                                              |
 | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -1054,4 +1064,4 @@ This project is licensed under the **GPL-3.0 License**; the complete, legally bi
 
 ---
 
-Built end-to-end with TypeScript. [GPL-3.0 License](https://www.google.com/search?q=LICENSE).
+Built end-to-end with TypeScript. [GPL-3.0 License](LICENSE).
