@@ -1008,14 +1008,14 @@ Sample GitHub Actions run (first push, 2026-10-01):
 
 ### Documentation
 
-| Document                                                                         | Scope                                                                 |
-| -------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| [`README.md`](README.md)                                                         | This file: overview, stack, and quickstart guide                      |
+| Document                                         | Scope                                                                 |
+| ------------------------------------------------ | --------------------------------------------------------------------- |
+| [`README.md`](README.md)                         | This file: overview, stack, and quickstart guide                      |
 | [`docs/USUARIO.md`](docs/USUARIO.md)             | User guide with visual walkthroughs and step-by-step flows            |
 | [`docs/DESARROLLADOR.md`](docs/DESARROLLADOR.md) | Developer guide: architectural patterns, conventions, and test setups |
 | [`docs/API.md`](docs/API.md)                     | Complete REST specification (source of truth for frontend & backend)  |
 | [`docs/DESPLIEGUE.md`](docs/DESPLIEGUE.md)       | Deployment instructions for Docker, CI/CD, and operations             |
-| Swagger (`/api/docs`)                                                            | Interactive OpenAPI interface                                         |
+| Swagger (`/api/docs`)                            | Interactive OpenAPI interface                                         |
 
 ---
 
