@@ -579,7 +579,7 @@ Hecho con TypeScript de punta a punta. [Licencia GPL-3.0](LICENSE).
 15. [Continuous Integration](#continuous-integration)
 16. [Documentation](#documentation)
 17. [Troubleshooting](#troubleshooting)
-18. [Project Status & Roadmap](#project-status-roadmap)
+18. [Project Status & Roadmap](#project-status--roadmap)
 19. [License](#license)
 
 ---
